@@ -1,0 +1,75 @@
+@keyframes menuIn {
+  from {
+    left: -22rem;
+  }
+  to {
+    left: 0;
+  }
+}
+
+.nav {
+  width: 100%;
+  background-color: rgb(61, 61, 124);
+  padding: 1rem;
+
+  &__button {
+    all: unset;
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    padding: 0.5rem;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__menu {
+    top: 0px;
+    background-color: white;
+    position: absolute;
+    box-shadow: 5px 0px 30px rgba(0, 0, 0, 0.617);
+    width: 350px;
+    height: 100%;
+    padding: 2rem 1rem;
+    left: 0;
+    &--in {
+      animation: menuIn 0.2s ease-in-out;
+    }
+
+    &-button {
+      width: 100%;
+      text-align: right;
+
+      &:hover {
+        cursor: pointer;
+        color: gray;
+      }
+    }
+  }
+  &__list {
+    list-style: none;
+    margin-top: 2rem;
+    width: 100%;
+  }
+
+  &__item {
+    border-top: 1px solid gray;
+    padding: none;
+    padding: 1rem 0;
+    width: 100%;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+      color: gray;
+    }
+  }
+}
