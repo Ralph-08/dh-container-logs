@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import NavBar from "../../components/NavBar/NavBar";
+import AddContainerForm from "../../components/AddContainerForm/AddContainerForm";
 import "./LogsPage.scss";
 
 const LogsPage = () => {
@@ -31,19 +32,18 @@ const LogsPage = () => {
     <section className="logsPage">
       <NavBar />
       <section className="logsPage__container">
+        <AddContainerForm />
         <section className="assigned">
-          <h3 className="assigned__subhead">Assigned</h3>
-
-          {containers.map((containerInfo) => (
-            <section className="assigned__card" key={containerInfo.id}>
-              <ul className="assigned__list-labels">
-                <li className="label__item">Container #</li>
-                <li className="label__item">Case Qty</li>
-                <li className="label__item"># of SKUs</li>
-                <li className="label__item">Crew Assigned</li>
-                <li className="label__item">Status</li>
-              </ul>
-
+          <h3 className="assigned__subhead">Containers Assigned:</h3>
+          <ul className="assigned__list-labels">
+            <li className="label__item">Container #</li>
+            <li className="label__item">Case Qty</li>
+            <li className="label__item"># of SKUs</li>
+            <li className="label__item">Crew Assigned</li>
+            <li className="label__item">Status</li>
+          </ul>
+          <section className="assigned__card">
+            {containers.map((containerInfo) => (
               <ul className="assigned__item">
                 <li className="assigned__info">
                   {containerInfo.containerNumber}
@@ -61,8 +61,8 @@ const LogsPage = () => {
                 </li>
                 <li className="assigned__info">{containerInfo.status}</li>
               </ul>
-            </section>
-          ))}
+            ))}
+          </section>
         </section>
       </section>
     </section>
