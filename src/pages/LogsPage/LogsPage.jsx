@@ -3,10 +3,12 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import NavBar from "../../components/NavBar/NavBar";
 import AddContainerForm from "../../components/AddContainerForm/AddContainerForm";
+import LoadingDonut from "../../components/LoadingDonut/LoadingDonut";
 import "./LogsPage.scss";
 
 const LogsPage = () => {
   const [containers, setContainers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -17,6 +19,7 @@ const LogsPage = () => {
           ...doc.data(),
         }));
         setContainers(data);
+        setIsLoading(false);
         console.log("Live data:", data);
       },
       (error) => {
@@ -43,25 +46,29 @@ const LogsPage = () => {
             <li className="label__item">Status</li>
           </ul>
           <section className="assigned__card">
-            {containers.map((containerInfo) => (
-              <ul className="assigned__item">
-                <li className="assigned__info">
-                  {containerInfo.containerNumber}
-                </li>
-                <li className="assigned__info">{containerInfo.caseNumber}</li>
-                <li className="assigned__info">{containerInfo.skuNumber}</li>
-                <li className="assigned__info">
-                  <ul className="assigned__crew-list">
-                    {containerInfo.crewAssigned?.map((crew, i) => (
-                      <li key={i}>
-                        {crew.lastName}, {crew.firstName}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-                <li className="assigned__info">{containerInfo.status}</li>
-              </ul>
-            ))}
+            {isLoading ? (
+              <LoadingDonut />
+            ) : (
+              containers.map((containerInfo) => (
+                <ul className={`assigned__item`}>
+                  <li className="assigned__info">
+                    {containerInfo.containerNumber}
+                  </li>
+                  <li className="assigned__info">{containerInfo.caseNumber}</li>
+                  <li className="assigned__info">{containerInfo.skuNumber}</li>
+                  <li className="assigned__info">
+                    <ul className="assigned__crew-list">
+                      {containerInfo.crewAssigned?.map((crew, i) => (
+                        <li key={i}>
+                          {crew.lastName}, {crew.firstName}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                  <li className="assigned__info">{containerInfo.status}</li>
+                </ul>
+              ))
+            )}
           </section>
         </section>
       </section>
