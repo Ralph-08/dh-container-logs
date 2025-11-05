@@ -12,7 +12,7 @@ const AddContainerForm = () => {
   const [containerNumber, setContainerNumber] = useState("");
   const [caseNumber, setCaseNumber] = useState("");
   const [skuNumber, setSkuNumber] = useState("");
-  const [status, setStatus] = useState("In Progress");
+  const [status, setStatus] = useState("Not Started");
   const [crewAssigned, setCrewAssigned] = useState([]);
   const [crewList, setCrewList] = useState([]);
   const [selectedCrew1, setSelectedCrew1] = useState("");
@@ -65,7 +65,7 @@ const AddContainerForm = () => {
       setContainerNumber("");
       setCaseNumber("");
       setSkuNumber("");
-      setStatus("In Progress");
+      setStatus("Not Started");
       setSelectedCrew1("");
       setSelectedCrew2("");
       setCrewAssigned([]);
@@ -135,14 +135,14 @@ const AddContainerForm = () => {
         </select>
       </div>
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label>Status</label>
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="In progress">In progress</option>
           <option value="Completed">Completed</option>
           <option value="Not Started">Not Started</option>
         </select>
-      </div>
+      </div> */}
 
       <button type="submit">Submit</button>
     </form>

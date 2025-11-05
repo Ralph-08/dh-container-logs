@@ -41,6 +41,8 @@
       position: static;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
+      box-shadow: 0 5px 8px rgba(0, 0, 0, 0.095);
+
 
       .label__item {
         color: white;
@@ -60,13 +62,62 @@
       margin: 0;
       animation: fadeIn 0.3s ease-in;
 
-      &:hover {
+      &:nth-child(even) {
         background-color: rgba(61, 61, 124, 0.1);
       }
 
       .assigned__info {
         flex: 1;
         text-align: center;
+
+
+        .assigned {
+          &__list-labels,
+          &__item {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 2fr 1fr 1fr;
+            gap: 10px;
+            align-items: center;
+          }
+
+          &__actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+
+        .btn--start,
+        .btn--finish {
+          padding: 8px 12px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: background-color 0.2s;
+          width: 100px; // Standardized width
+        }
+
+        .btn--start {
+          background-color: #4caf50; /* Green */
+          color: white;
+          &:hover {
+            background-color: #45a049;
+          }
+        }
+
+        .btn--finish {
+          background-color: #f44336; /* Red */
+          color: white;
+          &:hover {
+            background-color: #d32f2f;
+          }
+        }
+
+        .status--completed {
+          color: #007bff; // Blue or any color to signify completion
+          font-weight: bold;
+        }
       }
 
       ul {
