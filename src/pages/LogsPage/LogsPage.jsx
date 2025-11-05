@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import NavBar from "../../components/NavBar/NavBar";
 import AddContainerForm from "../../components/AddContainerForm/AddContainerForm";
@@ -11,8 +11,15 @@ const LogsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Reference to "logs" collection
+    const logsRef = collection(db, "logs");
+
+    // Query ordered by createdAt (newest first)
+    const q = query(logsRef, orderBy("createdAt", "desc"));
+
+    // Real-time listener
     const unsubscribe = onSnapshot(
-      collection(db, "logs"),
+      q,
       (querySnapshot) => {
         const data = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -20,14 +27,14 @@ const LogsPage = () => {
         }));
         setContainers(data);
         setIsLoading(false);
-        console.log("Live data:", data);
+        console.log("🔄 Live data (sorted):", data);
       },
       (error) => {
-        console.error("Error listening to updates:", error);
+        console.error("❌ Error listening to updates:", error);
       }
     );
 
-    // 🧹 Cleanup listener when component unmounts
+    // Cleanup listener when component unmounts
     return () => unsubscribe();
   }, []);
 

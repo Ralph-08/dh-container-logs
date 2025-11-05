@@ -1,17 +1,23 @@
 .addContainerForm {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
   padding: 1rem;
   border-radius: 10px;
   background: #f8f8ff;
   max-width: 500px;
-  max-height: 538px;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+  width: 450px;
 
   h3 {
     text-align: center;
     color: #3d3d7c;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
   label {
@@ -26,11 +32,6 @@
     border: 1px solid #ccc;
   }
 
-  .crew-fields {
-    display: flex;
-    gap: 0.5rem;
-  }
-
   button {
     background-color: #3d3d7c;
     color: white;
@@ -38,6 +39,7 @@
     padding: 0.6rem;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
   }
 
   button:hover {
