@@ -13,6 +13,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import AddContainerForm from "../../components/AddContainerForm/AddContainerForm";
 import LoadingDonut from "../../components/LoadingDonut/LoadingDonut";
 import "./LogsPage.scss";
+import { Link } from "react-router-dom";
 
 // --- ⏰ Helper Function to Format Time ---
 const formatTimeRange = (startTimeStamp, endTimeStamp) => {
@@ -47,6 +48,17 @@ const formatTimeRange = (startTimeStamp, endTimeStamp) => {
   return `${startTime} - ${endTime}`;
 };
 
+const formatNumberWithCommas = (num) => {
+  // If the input is a string of digits or a number, format it. Otherwise, return as is.
+  if (
+    typeof num === "number" ||
+    (typeof num === "string" && /^\d+$/.test(num))
+  ) {
+    return Number(num).toLocaleString("en-US");
+  }
+  return num || "N/A";
+};
+
 const LogsPage = () => {
   const [containers, setContainers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +76,8 @@ const LogsPage = () => {
       console.log(`✅ Container ${containerId} started.`);
     } catch (error) {
       console.error("❌ Error starting container:", error);
-      alert("Failed to start container. Check console for details.");
+      // NOTE: Using console.error instead of alert()
+      console.error("Failed to start container. Check console for details.");
     }
   };
 
@@ -81,7 +94,8 @@ const LogsPage = () => {
       console.log(`✅ Container ${containerId} finished.`);
     } catch (error) {
       console.error("❌ Error finishing container:", error);
-      alert("Failed to finish container. Check console for details.");
+      // NOTE: Using console.error instead of alert()
+      console.error("Failed to finish container. Check console for details.");
     }
   };
 
@@ -128,12 +142,24 @@ const LogsPage = () => {
             {isLoading ? (
               <LoadingDonut />
             ) : (
-              containers.map((containerInfo) => (
-                <ul key={containerInfo.id} className={`assigned__item`}>
+              containers.map((containerInfo, index) => (
+                <ul
+                  key={containerInfo.id}
+                  className={`assigned__item`}
+                  // 💡 NEW: Apply staggered animation delay
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
                   <li className="assigned__info">
-                    {containerInfo.containerNumber}
+                    <Link
+                      to={`/container/${containerInfo.containerNumber}`} // Use 'to' prop for routing
+                      className="container__link"
+                    >
+                      {containerInfo.containerNumber}
+                    </Link>
                   </li>
-                  <li className="assigned__info">{containerInfo.caseNumber}</li>
+                  <li className="assigned__info">
+                    {formatNumberWithCommas(containerInfo.caseNumber)}
+                  </li>
                   <li className="assigned__info">{containerInfo.skuNumber}</li>
                   <li className="assigned__info">
                     <ul className="assigned__crew-list">

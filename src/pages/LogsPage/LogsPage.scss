@@ -1,9 +1,12 @@
-@keyframes fadeIn {
+/* 💡 NEW: Keyframe for staggered list entry */
+@keyframes slideInFade {
   0% {
     opacity: 0;
+    transform: translateX(-10px);
   }
   100% {
     opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -14,6 +17,8 @@
     align-items: center;
     display: flex;
     gap: 2rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
   }
 
   .assigned {
@@ -43,7 +48,6 @@
       border-top-right-radius: 5px;
       box-shadow: 0 5px 8px rgba(0, 0, 0, 0.095);
 
-
       .label__item {
         color: white;
         font-weight: bold;
@@ -60,7 +64,11 @@
       border-bottom: 1px solid lightgray;
       align-items: center;
       margin: 0;
-      animation: fadeIn 0.3s ease-in;
+
+      /* 💡 UPDATED: Use the new staggered animation and start invisible */
+      animation: slideInFade 0.4s ease-out forwards;
+      opacity: 0;
+      /* Delay is added via inline style in the JSX */
 
       &:nth-child(even) {
         background-color: rgba(61, 61, 124, 0.1);
@@ -70,6 +78,15 @@
         flex: 1;
         text-align: center;
 
+        .container__link {
+          text-decoration: none;
+          color: #3d3d7c;
+          font-weight: bold;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
 
         .assigned {
           &__list-labels,
@@ -87,6 +104,7 @@
           }
         }
 
+        /* 💡 UPDATED: Added transition for hover effects */
         .btn--start,
         .btn--finish {
           padding: 8px 12px;
@@ -94,7 +112,7 @@
           border-radius: 5px;
           cursor: pointer;
           font-weight: bold;
-          transition: background-color 0.2s;
+          transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
           width: 100px; // Standardized width
         }
 
@@ -103,6 +121,8 @@
           color: white;
           &:hover {
             background-color: #45a049;
+            transform: translateY(-1px); /* Lift slightly */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
           }
         }
 
@@ -111,10 +131,12 @@
           color: white;
           &:hover {
             background-color: #d32f2f;
+            transform: translateY(-1px); /* Lift slightly */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
           }
         }
 
-        .status--completed {
+        .status--duration {
           color: #007bff; // Blue or any color to signify completion
           font-weight: bold;
         }

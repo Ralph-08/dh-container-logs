@@ -1,0 +1,314 @@
+/* 💡 ADDED: Fixed NavBar Styling */
+.navBar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it stays on top of other content */
+  /* You may need to add background-color here if your NavBar component doesn't have one */
+}
+
+.container-details {
+  /* 💡 ADJUSTED: Added padding to push content below the fixed Navbar */
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+}
+
+/* 💡 NEW: Keyframe for the main card loading animation */
+@keyframes cardLoad {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.details-card {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+  /* 💡 APPLYING CARD LOAD ANIMATION */
+  animation: cardLoad 0.5s ease-out 0.1s forwards;
+  opacity: 0; /* Start invisible */
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    color: rgb(61, 61, 124); /* Primary color from LogsPage header */
+    font-size: 1.8rem;
+  }
+}
+
+/* --- Action Buttons (Edit, Delete, Save, Cancel) --- */
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn--edit,
+.btn--save,
+.btn--delete,
+.btn--cancel,
+.btn--delete-confirm {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn--edit {
+  background-color: #007bff; /* Blue for Edit */
+  color: white;
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.btn--save {
+  background-color: #28a745; /* Green for Save */
+  color: white;
+  &:hover {
+    background-color: #1e7e34;
+  }
+}
+
+.btn--delete {
+  background-color: #dc3545; /* Red for Delete */
+  color: white;
+  &:hover {
+    background-color: #c82333;
+  }
+}
+
+.btn--cancel {
+  background-color: #6c757d; /* Gray for Cancel */
+  color: white;
+  &:hover {
+    background-color: #5a6268;
+  }
+}
+
+.btn--delete-confirm {
+  background-color: #dc3545; /* Red for Delete */
+  color: white;
+  &:hover {
+    background-color: #c82333;
+  }
+}
+
+.btn--back {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+
+  &:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-1px);
+  }
+}
+
+.details-group {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+}
+
+.group-title {
+  color: #555;
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px dotted #e5e5e5;
+  /* 💡 ADDED: Transition for subtle visual feedback */
+  transition: background-color 0.2s;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    font-weight: 600;
+    color: #333;
+    flex-basis: 50%;
+  }
+
+  .value {
+    text-align: right;
+    flex-basis: 50%;
+    color: #000;
+
+    .edit-input {
+      width: 100%;
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: right;
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+      /* 💡 ADDED: Transition for input changes */
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+  }
+}
+
+/* 💡 NEW: Style for the two dropdowns in edit mode */
+.crew-edit-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .edit-input {
+    text-align: left; /* Ensure text aligns left in dropdowns */
+  }
+}
+
+.edit-select {
+  // Ensuring the select input uses the same style as other inputs
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 0.8em;
+  padding-right: 30px; /* Make space for the arrow */
+}
+
+/* Status Colors */
+.status {
+  font-weight: bold;
+  &--not-started {
+    color: #808080;
+  }
+  &--in-progress {
+    color: #ffc107;
+  } /* Amber/Yellow */
+  &--completed {
+    color: #4caf50;
+  } /* Green */
+}
+
+/* Crew List */
+.crew-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .crew-member {
+    padding: 0.25rem 0;
+    text-align: right;
+    border-bottom: 1px dotted #e5e5e5;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.edit-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+/* --- Confirmation Overlay/Modal Replacement --- */
+.confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* 💡 EXISTING: Keyframe Animation for Delete Pop-up */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.confirmation-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  text-align: center;
+
+  /* 💡 APPLY ANIMATION */
+  animation: fadeInScale 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+
+  p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+}
+
+.confirmation-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Loading/Error States */
+.loading-container {
+  /* 💡 UPDATED: Use Flexbox to center the content */
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  height: 60vh; /* Gives space for vertical centering */
+}
+
+.error-message {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.1rem;
+  color: #cc0000;
+}
