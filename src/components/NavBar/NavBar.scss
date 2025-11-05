@@ -1,80 +1,147 @@
-@keyframes menuIn {
+/* 💡 New Keyframes for smooth transitions */
+
+/* Slide from the left using transform for better performance */
+@keyframes slideIn {
   from {
-    left: -22rem;
+    transform: translateX(-100%);
   }
   to {
-    left: 0;
+    transform: translateX(0);
+  }
+}
+
+/* Fade in the overlay backdrop */
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
 .nav {
   width: 100%;
-  background-color: rgb(61, 61, 124);
-  padding: 1rem;
+  /* Using a slightly darker shade of blue */
+  background-color: #3d3d7c; 
+  padding: 0.75rem 1.5rem; /* Increased padding */
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   z-index: 1000;
+  /* Added a subtle shadow to lift the bar */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 
   &__button {
+    /* Reset and style the hamburger icon button */
     all: unset;
     color: white;
-    text-decoration: none;
-    background-color: transparent;
-    padding: 0.5rem;
-    outline: none;
     cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.1s;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+    
+    svg {
+        height: 24px;
+        width: 24px;
+    }
+  }
+
+  /* 💡 NEW: Backdrop/Overlay styles */
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050; /* Below the menu (1100) */
+    
+    &--in {
+        animation: overlayFadeIn 0.3s ease-out forwards;
     }
   }
 
   &__menu {
-    top: 0px;
+    top: 0;
     background-color: white;
-    position: absolute;
-    box-shadow: 5px 0px 30px rgba(0, 0, 0, 0.617);
-    width: 350px;
-    height: 100%;
-    padding: 2rem 1rem;
+    position: fixed; /* Use fixed for full viewport height */
+    box-shadow: 5px 0px 30px rgba(0, 0, 0, 0.4);
+    width: 80%; /* Responsive width */
+    max-width: 300px; /* Max size for desktop */
+    height: 100vh; /* Full viewport height */
+    padding: 2rem 1.5rem;
     left: 0;
+    z-index: 1100; /* Above the backdrop */
+    transform: translateX(-100%); /* Start off-screen */
+    
     &--in {
-      animation: menuIn 0.2s ease-in-out;
+      /* Apply the new, smoother slide-in animation */
+      animation: slideIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
-    &-button {
-      width: 100%;
-      text-align: right;
+    &-close-button {
+      /* Styling the X icon button */
+      all: unset;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: #333;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 4px;
+      transition: color 0.2s, transform 0.2s;
 
       &:hover {
-        cursor: pointer;
-        color: gray;
+        color: #dc3545; /* Red for close action */
+        transform: rotate(90deg);
       }
     }
   }
+  
   &__list {
     list-style: none;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     width: 100%;
+    padding: 0;
   }
 
   &__item {
-    border-top: 1px solid gray;
-    padding: none;
+    border-bottom: 1px solid #f0f0f0; /* Lighter separator */
     padding: 1rem 0;
-    width: 100%;
+    
+    &:first-child {
+        border-top: none;
+    }
   }
 
   &__link {
     text-decoration: none;
-    color: black;
-    width: 100%;
-    cursor: pointer;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: block;
+    padding: 0.5rem 0;
+    transition: color 0.2s;
 
     &:hover {
-      color: gray;
+      color: #3d3d7c; /* Primary color on hover */
+    }
+    
+    /* 💡 NEW: Active link style */
+    &.active {
+        color: #3d3d7c;
+        font-weight: bold;
+        border-left: 4px solid #3d3d7c;
+        padding-left: 10px;
     }
   }
 }
